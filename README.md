@@ -26,14 +26,17 @@
 - Pilih File Di Bagian Bar Atas
 - Open Folder, Open Folder Yang Udah Di Clone Tadi
 
-5.Ubah/Rename env.example -> env
-- Buka env Yang Udah Di Rename
+5.Copy .env.example Dan Rename Menjadi .env
+- Buka .env Yang Udah Di Rename
 - Buat Database Baru Di Localhost Bebas Namanya
-- DB_DATABASE=laravel -> Ubah Nama Databasenya Yang Udah Dibuat Tadi Sesuai Di Mysql
+- Cari Line Di .env Yang Bernama DB_DATABASE=namadatabase -> Ubah Nama Databasenya Yang Udah Dibuat Tadi Sesuai Di Mysql.
 
 6.Buka Terminal Di VS.Code
-- New Terminal
-- Lalu Jalankan Perintah php artisan migrate --seed
+- Cari Terminal Di Bagian Atas Bar
+- Pilih New Terminal
+- Pertama Ketikkan composer install & composer update
+- Lalu Ketikkan Perintah php artisan key:generate
+- Setelah Itu Ketikan Perintah php artisan migrate --seed
 - Selanjutnya php artisan serve
 - Dan Selesai Terimakasih
 
