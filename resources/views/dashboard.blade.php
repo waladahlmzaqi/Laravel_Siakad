@@ -2,7 +2,7 @@
 @push('link')
 
 @endpush
-@section('title', 'Pembayaran SPP | DASHBOARD')
+@section('title', 'SIAKAD | DASHBOARD')
 @section('judul', 'DASHBOARD')
 @section('breadcrump')
         <div class="breadcrumb-item "><i class="fas fa-user"></i></div>

@@ -18,7 +18,7 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="menu-header">ADMIN</li>
+                        <li class="menu-header">MASTER</li>
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Data Umum</span></a>
                             <ul class="dropdown-menu">
@@ -26,6 +26,7 @@
                               <li><a class="nav-link" href="{{ route('guru.index') }}">Data Guru</a></li>
                               <li><a class="nav-link" href="">Data Karyawan</a></li>
                               <li><a class="nav-link" href="">Data Kelas</a></li>
+                              <li><a class="nav-link" href="/mapel">Data Mapel</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
