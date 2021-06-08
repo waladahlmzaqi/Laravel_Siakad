@@ -46,11 +46,7 @@ Route::get('admin', function () { return view('admin'); })->middleware('checkRol
 Route::get('siswa', function () { return view('siswa'); });
 
 
-//crud siswa
-// Route::get('/siswa', function () { return view('admin'); })->name('siswa');
-// Route::get('/datasiswa', function () { return view('welcome'); });
-Route::resource('siswa', 'SiswaController');
-Route::resource('guru', 'GuruController');
+
 
 
 
