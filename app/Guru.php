@@ -3,12 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Guru extends Model
 {
-    protected $fillable = [
-    	'nip', 'nama_guru', 'mapel_id',
-        'jk', 'no_tlp', 'tmp_lahir',
-        'tgl_lahir'
-    ];
+    use SoftDeletes;
+
+    protected $fillable = ['id_card', 'nip', 'nama_guru', 'mapel_id', 'kode', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'foto'];
+
+    public function mapel()
+    {
+        return $this->belongsTo('App\Mapel')->withDefault();
+    }
+
+    protected $table = 'guru';
 }

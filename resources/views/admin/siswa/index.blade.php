@@ -26,56 +26,49 @@
     </div>
 @endif
 
-<div class="card">
-    <div class="card-header">
-      <h4>Data Siswa</h4>
-    </div>
-    <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
-        <a href="{{ route('siswa.create') }}" class="btn btn-success">Tambah Siswa +</a>
-    </div>
-    <div class="card-body">
-      <table class="table table-striped" id="table_siswa">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>NISN</th>
-                <th>Nama Siswa</th>
-                <th>Gender</th>
-                <th>No.Telephone</th>
-                <th>Tempat & Tanggal Lahir</th>
-                <th>Kelas</th>
-                <th >Action</th>
-            </tr>
-        </thead>
-        <tbody class="table-striped text-center">
-            @foreach ($siswa as $siswas)
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <a href="/mapel/tambahsiswa">Tambah siswa</a>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Siswa
+                </button>
+                <a href="" class="btn btn-success btn-sm my-3" target="_blank"><i class="nav-icon fas fa-file-export"></i> &nbsp; EXPORT EXCEL</a>
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importExcel">
+                    <i class="nav-icon fas fa-file-import"></i> &nbsp; IMPORT EXCEL
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#dropTable">
+                    <i class="nav-icon fas fa-minus-circle"></i> &nbsp; Drop
+                </button>
+            </h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped table-hover">
+            <thead>
                 <tr>
-                    <td>{{ $siswas->id }}</td>
-                    <td>{{ $siswas->nisn }}</td>
-                    <td>{{ $siswas->nama_siswa }}</td>
-                    <td>{{ $siswas->jk }}</td>
-                    <td>{{ $siswas->no_tlp }}</td>
-                    <td>{{ $siswas->tmp_lahir }} {{ $siswas->tgl_lahir }}</td>
-                    <td>{{ $siswas->kelas_id }}</td>
-                    <td>
-                        <form action="{{ route('siswa.destroy',$siswas->id) }}" method="POST">
-
-                            <a class="btn btn-info" href="{{ route('siswa.show',$siswas->id) }}">
-                                <i class="fas fa-info-circle"></i>
-                            </a>
-                            <a class="btn btn-primary" href="{{ route('siswa.edit',$siswas->id) }}">
-                                <i class="far fa-edit"></i>
-                            </a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                        </form>
-                    </td>
+                    <th>No.</th>
+                    <th>Kelas</th>
+                    <th>Aksi</th>
                 </tr>
-            @endforeach
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+                @foreach ($kelas as $data)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $data->nama_kelas }}</td>
+                        <td>
+                            <a href="{{ route('siswa.kelas', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
     </div>
+    <!-- /.card -->
 </div>
 @endsection
 @push('script')

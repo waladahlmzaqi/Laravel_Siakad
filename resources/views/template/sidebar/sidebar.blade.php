@@ -22,11 +22,10 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Data Umum</span></a>
                             <ul class="dropdown-menu">
-                              <li class="active"><a class="nav-link" href="{{ route('siswa.index') }}">Data Siswa</a></li>
-                              <li><a class="nav-link" href="{{ route('guru.index') }}">Data Guru</a></li>
-                              <li><a class="nav-link" href="">Data Karyawan</a></li>
-                              <li><a class="nav-link" href="">Data Kelas</a></li>
-                              <li><a class="nav-link" href="/mapel">Data Mapel</a></li>
+                                <li><a class="nav-link" href="/mapel">Data Mapel</a></li>
+                                <li><a class="nav-link" href="{{ route('guru.index') }}">Data Guru</a></li>
+                                <li><a class="nav-link" href="/kelas">Data Kelas</a></li>
+                                <li class="active"><a class="nav-link" href="/siswa">Data Siswa</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mapel;
 use App\Paket;
 use App\Guru;
+use App\kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -24,12 +25,26 @@ class MapelController extends Controller
         // $paket = DB::table('paket')->get();
         return view('admin.mapel.index', compact('mapel', 'paket'));
     }
-    public function index2()
+    public function createmapel()
     {
         $paket = Paket::all();
         // $paket = DB::table('paket')->get();
         return view('admin.mapel.create', compact('paket'));
     }
+
+    public function createguru()
+    {
+        // $mapel = Mapel::orderBy('nama_mapel')->get();
+        $mapel = Mapel::all();
+        $max = Guru::max('id_card');
+        return view('admin.guru.create', compact('mapel', 'max'));
+    }
+    public function createsiswa()
+    {
+        $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
+        return view('admin.siswa.create', compact('kelas'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

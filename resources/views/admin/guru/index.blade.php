@@ -26,55 +26,42 @@
     </div>
 @endif
 
-<div class="card">
-    <div class="card-header">
-      <h4>Data Guru</h4>
-    </div>
-    <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
-        <a href="{{ route('guru.create') }}" class="btn btn-success">Tambah Guru +</a>
-    </div>
-    <div class="card-body">
-      <table class="table table-striped" id="table_siswa">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>NIP</th>
-                <th>Nama Guru</th>
-                <th>Mapel</th>
-                <th>Gender</th>
-                <th>No. Telp</th>
-                <th>Tempat & Tanggal Lahir</th>
-                <th >Action</th>
-            </tr>
-        </thead>
-        <tbody class="table-striped text-center">
-            @foreach ($guru as $data)
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <a href="/mapel/tambahguru" class="btn btn-success"><i class="nav-icon"></i> &nbsp; Tambah</a>
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importExcel">
+                    <i class="nav-icon fas fa-file-import"></i> &nbsp; IMPORT EXCEL
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#dropTable">
+                    <i class="nav-icon fas fa-minus-circle"></i> &nbsp; Drop
+                </button>
+            </h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped table-hover">
+            <thead>
                 <tr>
-                    <td>{{ $data->id }}</td>
-                    <td>{{ $data->nip }}</td>
-                    <td>{{ $data->nama_guru }}</td>
-                    <td>{{ $data->mapel_id }}</td>
-                    <td>{{ $data->jk }}</td>
-                    <td>{{ $data->no_tlp }}</td>
-                    <td>{{ $data->tmp_lahir }} {{ $data->tgl_lahir }}</td>
-                    <td>
-                        <form action="{{ route('guru.destroy',$data->id) }}" method="POST">
-
-                            <a class="btn btn-info" href="{{ route('guru.show',$data->id) }}">
-                                <i class="fas fa-info-circle"></i>
-                            </a>
-                            <a class="btn btn-primary" href="{{ route('guru.edit',$data->id) }}">
-                                <i class="far fa-edit"></i>
-                            </a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                        </form>
-                    </td>
+                    <th>No.</th>
+                    <th>Nama Mapel</th>
+                    <th>Lihat Guru</th>
                 </tr>
-            @endforeach
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+                @foreach ($mapel as $data)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $data->nama_mapel }}</td>
+                        <td>
+                            <a href="{{ route('guru.mapel', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+          </table>
+        </div>
     </div>
 </div>
 @endsection

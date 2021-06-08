@@ -2,13 +2,20 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Siswa extends Model
 {
-    protected $fillable = [
-    	'nisn', 'nama_siswa', 'jk',
-        'no_tlp', 'tmp_lahir', 'tgl_lahir',
-        'kelas_id'
-    ];
+    use SoftDeletes;
+
+    protected $fillable = ['no_induk', 'nis', 'nama_siswa', 'kelas_id', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir'];
+
+    public function kelas()
+    {
+        return $this->belongsTo('App\Kelas')->withDefault();
+    }
+
+    protected $table = 'siswa';
 }

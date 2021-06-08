@@ -13,16 +13,19 @@ class CreateSiswaTable extends Migration
      */
     public function up()
     {
-        Schema::create('siswas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nisn');
-            $table->string('nama_siswa');
+        Schema::create('siswa', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('no_induk', 30);
+            $table->string('nis', 30);
+            $table->string('nama_siswa', 50);
             $table->enum('jk', ['L', 'P']);
-            $table->string('no_tlp');
-            $table->string('tmp_lahir');
+            $table->string('telp', 15);
+            $table->string('tmp_lahir', 50);
             $table->date('tgl_lahir');
-            $table->string('kelas_id');
+            $table->string('foto');
+            $table->integer('kelas_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -33,6 +36,6 @@ class CreateSiswaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siswas');
+        Schema::dropIfExists('siswa');
     }
 }
