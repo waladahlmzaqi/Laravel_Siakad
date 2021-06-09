@@ -11,19 +11,19 @@ class DataDummy extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'admin',
-                'email' => 'iniadmin@gmail.com',
+                'email' => 'admin@gmail.com',
                 'password' => Hash::make('123456789'),
                 'role' => 'admin',
             ],
             [
                 'name' => 'guru',
-                'email' => 'iniguru@gmail.com',
+                'email' => 'guru@gmail.com',
                 'password' => Hash::make('123456789'),
                 'role' => 'guru',
             ],
             [
                 'name' => 'siswa',
-                'email' => 'inisiswa@gmail.com',
+                'email' => 'siswa@gmail.com',
                 'password' => Hash::make('123456789'),
                 'role' => 'siswa',
             ],

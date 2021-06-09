@@ -64,7 +64,9 @@ class SiswaController extends Controller
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
             ]);
-        return redirect()->back()->with('success', 'Berhasil menambahkan data siswa baru!');
+        // return redirect()->back()->with('success', 'Berhasil menambahkan data siswa baru!');
+        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
+
     }
 
     /**

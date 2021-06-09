@@ -82,8 +82,7 @@ class KelasController extends Controller
                 'guru_id' => $request->guru_id,
             ]
         );
-
-        return redirect()->back()->with('success', 'Data kelas berhasil diperbarui!');
+        return redirect()->route('kelas.index')->with('success', 'Data siswa berhasil diperbarui!');
     }
 
     /**
@@ -165,5 +164,14 @@ class KelasController extends Controller
             );
         }
         return response()->json($newForm);
+    }
+
+    public function siswa($id)
+    {
+        $kelas = Kelas::findorfail($id);
+        $guru = Guru::OrderBy('nama_guru', 'asc')->get();
+        $paket = Paket::all();
+        $siswa = Siswa::where('kelas_id', $id)->orderBy('kelas_id', 'asc')->get();
+        return view('admin.kelas.show_siswa', compact('kelas', 'siswa', 'guru', 'paket'));
     }
 }

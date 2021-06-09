@@ -49,7 +49,7 @@
                         <form action="{{ route('kelas.destroy', $data->id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a class="btn btn-info" href="{{ route('kelas.showsiswa',$data->id) }}"><i class="nav-icon fas fa-users"></i> View Siswa</a>
+                            <a class="btn btn-info" href="{{ route('kelas.siswa',$data->id) }}"><i class="nav-icon fas fa-users"></i> View Siswa</a>
                             <button class="btn btn-danger"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>
