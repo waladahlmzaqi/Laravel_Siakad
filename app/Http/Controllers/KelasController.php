@@ -129,11 +129,6 @@ class KelasController extends Controller
     public function destroy($id)
     {
         $kelas = Kelas::findorfail($id);
-        $countSiswa = Siswa::where('kelas_id', $kelas->id)->count();
-        if ($countSiswa >= 1) {
-            Siswa::where('kelas_id', $kelas->id)->delete();
-        } else {
-        }
         $kelas->delete();
         return redirect()->back()->with('warning', 'Data kelas berhasil dihapus! (Silahkan cek trash data kelas)');
     }
@@ -146,13 +141,7 @@ class KelasController extends Controller
 
     public function restore($id)
     {
-        $id = Crypt::decrypt($id);
         $kelas = Kelas::withTrashed()->findorfail($id);
-        $countSiswa = Siswa::withTrashed()->where('kelas_id', $kelas->id)->count();
-        if ($countSiswa >= 1) {
-            Siswa::withTrashed()->where('kelas_id', $kelas->id)->restore();
-        } else {
-        }
         $kelas->restore();
         return redirect()->back()->with('info', 'Data kelas berhasil direstore! (Silahkan cek data kelas)');
     }
@@ -160,11 +149,6 @@ class KelasController extends Controller
     public function kill($id)
     {
         $kelas = Kelas::withTrashed()->findorfail($id);
-        $countSiswa = Siswa::withTrashed()->where('kelas_id', $kelas->id)->count();
-        if ($countSiswa >= 1) {
-            Siswa::withTrashed()->where('kelas_id', $kelas->id)->forceDelete();
-        } else {
-        }
         $kelas->forceDelete();
         return redirect()->back()->with('success', 'Data kelas berhasil dihapus secara permanent');
     }

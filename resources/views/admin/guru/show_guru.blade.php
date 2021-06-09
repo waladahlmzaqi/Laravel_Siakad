@@ -9,10 +9,21 @@
         <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
 @endsection
 @section('main')
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+@if ($message = Session::get('warning'))
+    <div class="alert alert-warning">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <a href="{{ route('guru.index') }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
+            <a href="{{ route('guru.index') }}" class="btn btn-success"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -23,7 +34,7 @@
                     <th>Nama</th>
                     <th>Id Card</th>
                     <th>NIP</th>
-                    <th>Foto</th>
+                    <th>Jenis Kelamin</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -34,18 +45,13 @@
                     <td>{{ $data->nama_guru }}</td>
                     <td>{{ $data->id_card }}</td>
                     <td>{{ $data->nip }}</td>
-                    <td>
-                        <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama_guru }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
-                            <img src="{{ asset($data->foto) }}" width="130px" class="img-fluid mb-2">
-                        </a>
-                        {{-- https://siakad.didev.id/guru/ubah-foto/{{$data->id}} --}}
-                    </td>
+                    <td>{{ $data->jk }}</td>
                     <td>
                         <form action="{{ route('guru.destroy', $data->id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a href="{{ route('guru.show', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
-                            <a href="{{ route('guru.edit', Crypt::encrypt($data->id)) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                            <a href="{{ route('guru.show',$data->id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                            <a href="{{ route('guru.edit',$data->id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
                             <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>

@@ -10,6 +10,17 @@
 @endsection
 @section('main')
 
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+@if ($message = Session::get('warning'))
+    <div class="alert alert-warning">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="card">
     <div class="card-header">
       <h4>Data Mapel</h4>
@@ -43,7 +54,7 @@
                         <form action="{{ route('mapel.destroy', $data->id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a href="{{ route('mapel.edit', Crypt::encrypt($data->id)) }}" class="btn btn-success btn-sm"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                            <a href="{{ route('mapel.edit', $data->id) }}" class="btn btn-success btn-sm"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
                             <button class="btn btn-danger btn-sm"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>

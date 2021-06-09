@@ -1,9 +1,26 @@
-@extends('template_backend.home')
-@section('heading', 'Trash Mapel')
-@section('page')
-  <li class="breadcrumb-item active">Trash Mapel</li>
+@extends('template.master')
+@push('link')
+
+@endpush
+@section('title', 'SIAKAD | DATA MAPEL')
+@section('judul', 'DATA MAPEL')
+@section('breadcrump')
+        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA MAPEL</div>
 @endsection
-@section('content')
+@section('main')
+
+@if ($message = Session::get('info'))
+    <div class="alert alert-info">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+@if ($message = Session::get('danger'))
+    <div class="alert alert-danger">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 @php
     $no = 1;
 @endphp
@@ -39,8 +56,8 @@
                         <form action="{{ route('mapel.kill', $data->id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a href="{{ route('mapel.restore', Crypt::encrypt($data->id)) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-undo"></i> &nbsp; Restore</a>
-                            <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            <a href="{{ route('mapel.restore', $data->id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-undo"></i> &nbsp; Restore</a>
+                            <button type="submit" class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>
                 </tr>
@@ -51,10 +68,10 @@
     </div>
 </div>
 @endsection
-@section('script')
-    <script>
-        $("#ViewTrash").addClass("active");
-        $("#liViewTrash").addClass("menu-open");
-        $("#TrashMapel").addClass("active");
-    </script>
-@endsection
+@push('script')
+<script>
+    $(document).ready( function () {
+        $('#table_mapel').DataTable();
+    } );
+</script>
+@endpush

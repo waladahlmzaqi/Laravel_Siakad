@@ -22,7 +22,7 @@ class GuruController extends Controller
     {
         $mapel = Mapel::orderBy('nama_mapel')->get();
         $max = Guru::max('id_card');
-        return view('admin.guru.index', compact(('mapel'), 'max'));
+        return view('admin.guru.index', compact('mapel', 'max'));
     }
 
     public function showmaple()
@@ -60,7 +60,6 @@ class GuruController extends Controller
         ]);
         Guru::create($request->all());
         return redirect()->route('guru.index')->with('success','Data Siswa berhasil di input');
-        // return redirect()->back()->with('success', 'Berhasil menambahkan data guru baru!');
     }
 
     /**
@@ -71,9 +70,8 @@ class GuruController extends Controller
      */
     public function show($id)
     {
-        $id = Crypt::decrypt($id);
         $guru = Guru::findorfail($id);
-        return view('admin.guru.details', compact('guru'));
+        return view('admin.guru.detail', compact('guru'));
     }
 
     /**
@@ -84,7 +82,6 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        $id = Crypt::decrypt($id);
         $guru = Guru::findorfail($id);
         $mapel = Mapel::all();
         return view('admin.guru.edit', compact('guru', 'mapel'));
@@ -106,14 +103,6 @@ class GuruController extends Controller
         ]);
 
         $guru = Guru::findorfail($id);
-        $user = User::where('id_card', $guru->id_card)->first();
-        if ($user) {
-            $user_data = [
-                'name' => $request->nama_guru
-            ];
-            $user->update($user_data);
-        } else {
-        }
         $guru_data = [
             'nama_guru' => $request->nama_guru,
             'mapel_id' => $request->mapel_id,
@@ -124,7 +113,7 @@ class GuruController extends Controller
         ];
         $guru->update($guru_data);
 
-        return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui!');
+        return redirect()->route('guru.mapel', $guru->mapel_id)->with('success', 'Data guru berhasil diperbarui!');
     }
 
     /**
@@ -136,13 +125,8 @@ class GuruController extends Controller
     public function destroy($id)
     {
         $guru = Guru::findorfail($id);
-        $countUser = User::where('id_card', $guru->id_card)->count();
-        if ($countUser >= 1) {
-            $user = User::where('id_card', $guru->id_card)->delete();
-        } else {
-        }
         $guru->delete();
-        return redirect()->route('guru.index')->with('warning', 'Data guru berhasil dihapus! (Silahkan cek trash data guru)');
+        return redirect()->route('guru.mapel', $guru->mapel_id)->with('warning', 'Data guru berhasil dihapus! (Silahkan cek trash data guru)');
     }
 
     public function trash()
@@ -153,13 +137,7 @@ class GuruController extends Controller
 
     public function restore($id)
     {
-        $id = Crypt::decrypt($id);
         $guru = Guru::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('id_card', $guru->id_card)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_card', $guru->id_card)->restore();
-        } else {
-        }
         $guru->restore();
         return redirect()->back()->with('info', 'Data guru berhasil direstore! (Silahkan cek data guru)');
     }
@@ -167,45 +145,14 @@ class GuruController extends Controller
     public function kill($id)
     {
         $guru = Guru::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('id_card', $guru->id_card)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_card', $guru->id_card)->forceDelete();
-        } else {
-        }
         $guru->forceDelete();
-        return redirect()->back()->with('success', 'Data guru berhasil dihapus secara permanent');
-    }
-
-    public function ubah_foto($id)
-    {
-        $id = Crypt::decrypt($id);
-        $guru = Guru::findorfail($id);
-        return view('admin.guru.ubah-foto', compact('guru'));
-    }
-
-    public function update_foto(Request $request, $id)
-    {
-        $this->validate($request, [
-            'foto' => 'required'
-        ]);
-
-        $guru = Guru::findorfail($id);
-        $foto = $request->foto;
-        $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
-        $guru_data = [
-            'foto' => 'uploads/guru/' . $new_foto,
-        ];
-        $foto->move('uploads/guru/', $new_foto);
-        $guru->update($guru_data);
-
-        return redirect()->route('guru.index')->with('success', 'Berhasil merubah foto!');
+        return redirect()->back()->with('danger', 'Data guru berhasil dihapus secara permanent');
     }
 
     public function mapel($id)
     {
-        $id = Crypt::decrypt($id);
         $mapel = Mapel::findorfail($id);
         $guru = Guru::where('mapel_id', $id)->orderBy('kode', 'asc')->get();
-        return view('admin.guru.show', compact('mapel', 'guru'));
+        return view('admin.guru.show_guru', compact('mapel', 'guru'));
     }
 }

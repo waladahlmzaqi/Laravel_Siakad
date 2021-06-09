@@ -12,7 +12,7 @@ class CreateMapelTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama_mapel', 50);
             $table->integer('paket_id');
-            $table->enum('kelompok', ['A', 'B', 'C']);
+            $table->enum('kelompok', ['A', 'B']);
             $table->timestamps();
             $table->softDeletes();
         });

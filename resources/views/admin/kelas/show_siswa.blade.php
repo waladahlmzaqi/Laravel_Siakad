@@ -26,21 +26,26 @@
     </div>
 @endif
 
-<div class="modal-body">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card-body">
-          <table class="table table-bordered table-striped table-hover" width="100%">
-            <thead>
-              <tr>
-                <th>No Induk Siswa</th>
-                <th>Nama Siswa</th>
-                <th>L/P</th>
-                <th>Foto Siswa</th>
-              </tr>
-            </thead>
-            <tbody id="data-siswa">
-                @foreach ($siswa as $data)
+<div class="card">
+    <div class="card-header">
+      <h4>Data Siswa</h4>
+    </div>
+    <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
+        <a href="/mapel/tambahsiswa" class="btn btn-success">Tambah Siswa +</a>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped" id="table_siswa">
+        <thead>
+            <tr>
+              <th>No</th>
+              <th>No Induk Siswa</th>
+              <th>Nama Siswa</th>
+              <th>Jenis Kelamin</th>
+              <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            @foreach ($siswa as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->no_induk }}</td>
@@ -48,69 +53,25 @@
                     <td>{{ $data->kelas->nama_kelas }}</td>
 
                     <td>
-                        <form action="{{ route('kelas.destroy', $data->id) }}" method="post">
+                        <form action="{{ route('siswa.destroy', $data->id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a href="{{ route('kelas.showsiswa',$data->id) }}">view siswa</a>
-                            <button type="button" class="btn btn-info btn-sm" onclick="getSubsSiswa({{$data->id}})" data-toggle="modal" data-target=".view-siswa">
-                              <i class="nav-icon fas fa-users"></i> &nbsp; View Siswa
-                            </button>
-                            <button type="button" class="btn btn-info btn-sm" onclick="getSubsJadwal({{$data->id}})" data-toggle="modal" data-target=".view-jadwal">
-                              <i class="nav-icon fas fa-calendar-alt"></i> &nbsp; View Jadwal
-                            </button>
-                            <button type="button" class="btn btn-success btn-sm" onclick="getEditKelas({{$data->id}})" data-toggle="modal" data-target="#form-kelas">
-                              <i class="nav-icon fas fa-edit"></i> &nbsp; Edit
-                            </button>
-                            <button class="btn btn-danger btn-sm"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            <a class="btn btn-info" href="{{ route('siswa.show', $data->id) }}"><i class="nav-icon fas fa-users"></i> View Siswa</a>
+                            <a class="btn btn-success" href="{{ route('siswa.edit', $data->id) }}"><i class="nav-icon fas fa-edit"></i> Edit</a>
+                            <button class="btn btn-danger"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>
                 </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
-        <!-- /.col -->
-      </div>
+            @endforeach
+        </tbody>
+      </table>
     </div>
-    <div class="modal-footer justify-content-between">
-      <button type="button" class="btn btn-default" data-dismiss="modal"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</button>
-      <a id="link-siswa" href="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> &nbsp; Download PDF</a>
-    </div>
-  </div>
-
+</div>
 @endsection
 @push('script')
 <script>
-    function getSubsSiswa(id){
-      var parent = id;
-      $.ajax({
-        type:"GET",
-        data:"id="+parent,
-        dataType:"JSON",
-        url:"{{ url('/siswa/view/json') }}",
-        success:function(result){
-          // console.log(result);
-          var siswa = "";
-          if(result){
-            $.each(result,function(index, val){
-              $("#judul-siswa").text('View Data Siswa ' + val.kelas);
-              siswa += "<tr>";
-                siswa += "<td>"+val.no_induk+"</td>";
-                siswa += "<td>"+val.nama_siswa+"</td>";
-                siswa += "<td>"+val.jk+"</td>";
-                siswa += "<td><img src='"+val.foto+"' width='100px'></td>";
-              siswa+="</tr>";
-            });
-            $("#data-siswa").html(siswa);
-          }
-        },
-        error:function(){
-          toastr.error("Errors 404!");
-        },
-        complete:function(){
-        }
-      });
-      $("#link-siswa").attr("href", "https://siakad.didev.id/listsiswapdf/"+id);
-    }
+    $(document).ready( function () {
+        $('#table_siswa').DataTable();
+    } );
 </script>
 @endpush

@@ -75,9 +75,8 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        $id = Crypt::decrypt($id);
         $siswa = Siswa::findorfail($id);
-        return view('admin.siswa.details', compact('siswa'));
+        return view('admin.siswa.detail', compact('siswa'));
     }
 
     /**
@@ -88,7 +87,6 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $id = Crypt::decrypt($id);
         $siswa = Siswa::findorfail($id);
         $kelas = Kelas::all();
         return view('admin.siswa.edit', compact('siswa', 'kelas'));
@@ -110,14 +108,6 @@ class SiswaController extends Controller
         ]);
 
         $siswa = Siswa::findorfail($id);
-        $user = User::where('no_induk', $siswa->no_induk)->first();
-        if ($user) {
-            $user_data = [
-                'name' => $request->nama_siswa
-            ];
-            $user->update($user_data);
-        } else {
-        }
         $siswa_data = [
             'nis' => $request->nis,
             'nama_siswa' => $request->nama_siswa,
@@ -141,16 +131,8 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         $siswa = Siswa::findorfail($id);
-        $countUser = User::where('no_induk', $siswa->no_induk)->count();
-        if ($countUser >= 1) {
-            $user = User::where('no_induk', $siswa->no_induk)->first();
-            $siswa->delete();
-            $user->delete();
-            return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
-        } else {
             $siswa->delete();
             return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
-        }
     }
 
     public function trash()
@@ -161,18 +143,10 @@ class SiswaController extends Controller
 
     public function restore($id)
     {
-        $id = Crypt::decrypt($id);
         $siswa = Siswa::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('no_induk', $siswa->no_induk)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('no_induk', $siswa->no_induk)->first();
-            $siswa->restore();
-            $user->restore();
-            return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
-        } else {
-            $siswa->restore();
-            return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
-        }
+        $siswa->restore();
+        return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
+
     }
 
     public function kill($id)
@@ -200,7 +174,6 @@ class SiswaController extends Controller
                 'no_induk' => $val->no_induk,
                 'nama_siswa' => $val->nama_siswa,
                 'jk' => $val->jk,
-                'foto' => $val->foto
             );
         }
 
@@ -209,9 +182,8 @@ class SiswaController extends Controller
 
     public function kelas($id)
     {
-        $id = Crypt::decrypt($id);
         $siswa = Siswa::where('kelas_id', $id)->OrderBy('nama_siswa', 'asc')->get();
         $kelas = Kelas::findorfail($id);
-        return view('admin.siswa.show', compact('siswa', 'kelas'));
+        return view('admin.siswa.show_siswa', compact('siswa', 'kelas'));
     }
 }

@@ -9,17 +9,12 @@
         <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> TAMBAH SISWA</div>
 @endsection
 @section('main')
-<div class="">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-      <div class="modal-header">
-          <h4 class="modal-title">Tambah Data Siswa</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-body">
-          <form action="{{ route('siswa.store') }}" method="post" enctype="multipart/form-data">
+<div class="card card-primary">
+    <div class="card-header">
+        <h4 class="modal-title">Tambah Data Siswa</h4>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('siswa.store') }}" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-6">
@@ -68,13 +63,11 @@
                     </div>
                 </div>
             </div>
-          </div>
-          <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</button>
-              <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
-          </form>
-      </div>
-      </div>
+            <div class="modal-footer mt-4">
+                <button type="button" class="btn btn-success mr-3"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</button>
+                <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

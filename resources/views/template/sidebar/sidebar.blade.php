@@ -33,10 +33,10 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-recycle"></i><span>Trash Data</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="/mapel"><i class="far fa-trash-alt"></i><span>Trash Mapel</span></a></li>
-                                <li><a class="nav-link" href="{{ route('guru.index') }}"><i class="far fa-trash-alt"></i><span>Trash Guru</span></a></li>
-                                <li><a class="nav-link" href="/kelas"><i class="far fa-trash-alt"></i><span>Trash Kelas</span></a></li>
-                                <li><a class="nav-link" href="/siswa"><i class="far fa-trash-alt"></i></i><span>Trash Siswa</span></a></li>
+                                <li><a class="nav-link" href="{{ route('mapel.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Mapel</span></a></li>
+                                <li><a class="nav-link" href="{{ route('guru.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Guru</span></a></li>
+                                <li><a class="nav-link" href="{{ route('kelas.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Kelas</span></a></li>
+                                <li><a class="nav-link" href="{{ route('siswa.trash') }}"><i class="far fa-trash-alt"></i></i><span>Trash Siswa</span></a></li>
                             </ul>
                         </li>
 

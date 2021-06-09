@@ -29,19 +29,14 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">
-                <a href="/mapel/tambahguru" class="btn btn-success"><i class="nav-icon"></i> &nbsp; Tambah</a>
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importExcel">
-                    <i class="nav-icon fas fa-file-import"></i> &nbsp; IMPORT EXCEL
-                </button>
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#dropTable">
-                    <i class="nav-icon fas fa-minus-circle"></i> &nbsp; Drop
-                </button>
-            </h3>
+            <h4>Data Guru</h4>
         </div>
+        <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
+            <a href="/mapel/tambahguru" class="btn btn-success">Tambah Mapel +</a>
+         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
+          <table id="table_guru" class="table table-striped">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -55,7 +50,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $data->nama_mapel }}</td>
                         <td>
-                            <a href="{{ route('guru.mapel', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
+                            <a href="{{ route('guru.mapel', $data->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
                         </td>
                     </tr>
                 @endforeach

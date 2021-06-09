@@ -33,17 +33,25 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Kelas</th>
-                <th >Action</th>
+                <th>Nama Siswa</th>
+                <th>No Induk</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody class="table-striped">
-            @foreach ($kelas as $data)
+            @foreach ($siswa as $data)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $data->nama_kelas }}</td>
+                        <td>{{ $data->nama_siswa }}</td>
+                        <td>{{ $data->no_induk }}</td>
                         <td>
-                            <a href="{{ route('siswa.kelas', $data->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Detail</a>
+                            <form action="{{ route('siswa.destroy', $data->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <a href="{{ route('siswa.show', $data->id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                                <a href="{{ route('siswa.edit', $data->id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                                <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

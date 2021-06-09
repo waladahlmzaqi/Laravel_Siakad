@@ -80,9 +80,7 @@ class MapelController extends Controller
                 'kelompok' => $request->kelompok,
             ]
         );
-        // Mapel::create($request->all());
-        return redirect()->route('mapel.index')->with('success','Data Guru berhasil di input');
-        // return redirect()->back()->with('success', 'Data mapel berhasil diperbarui!');
+        return redirect()->route('mapel.index')->with('success','Data Mapel Berhasil Di Perbarui');
     }
 
     /**
@@ -104,7 +102,6 @@ class MapelController extends Controller
      */
     public function edit($id)
     {
-        $id = Crypt::decrypt($id);
         $mapel = Mapel::findorfail($id);
         $paket = Paket::all();
         return view('admin.mapel.edit', compact('mapel', 'paket'));
@@ -137,7 +134,7 @@ class MapelController extends Controller
         } else {
         }
         $mapel->delete();
-        return redirect()->back()->with('warning', 'Data mapel berhasil dihapus! (Silahkan cek trash data mapel)');
+        return redirect()->route('mapel.index')->with('warning','Data Mapel Berhasil Di Dihapus (Silahkan Cek Trash Data Mapel)');
     }
 
     public function trash()
@@ -148,7 +145,6 @@ class MapelController extends Controller
 
     public function restore($id)
     {
-        $id = Crypt::decrypt($id);
         $mapel = Mapel::withTrashed()->findorfail($id);
         $countGuru = Guru::withTrashed()->where('mapel_id', $mapel->id)->count();
         if ($countGuru >= 1) {
@@ -156,7 +152,7 @@ class MapelController extends Controller
         } else {
         }
         $mapel->restore();
-        return redirect()->back()->with('info', 'Data mapel berhasil direstore! (Silahkan cek data mapel)');
+        return redirect()->route('mapel.trash')->with('info','Data Mapel Berhasil Di Restore (Silahkan Cek Data Mapel)');
     }
 
     public function kill($id)
@@ -168,6 +164,6 @@ class MapelController extends Controller
         } else {
         }
         $mapel->forceDelete();
-        return redirect()->back()->with('success', 'Data mapel berhasil dihapus secara permanent');
+        return redirect()->back()->with('danger', 'Data mapel berhasil dihapus secara permanent');
     }
 }

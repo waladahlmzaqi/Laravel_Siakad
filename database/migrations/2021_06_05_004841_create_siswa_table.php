@@ -22,7 +22,6 @@ class CreateSiswaTable extends Migration
             $table->string('telp', 15);
             $table->string('tmp_lahir', 50);
             $table->date('tgl_lahir');
-            $table->string('foto');
             $table->integer('kelas_id');
             $table->timestamps();
             $table->softDeletes();
