@@ -27,20 +27,7 @@ Route::get('/dashboard', function () { return view('dashboard'); });
 
 
 //admin
-Route::get('admin', function () { return view('admin'); })->middleware('checkRole:admin');
-
-
-//guru
-
-
-//kurikulum
-
-
-//kaprog
-
-
-//walas
-
+// Route::get('admin', function () { return view('admin'); })->middleware('checkRole:admin');
 
 //siswa
 Route::get('siswa', function () { return view('siswa'); });
@@ -86,7 +73,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/mapel/tambahguru', 'MapelController@createguru');
         Route::get('/mapel/tambahsiswa', 'MapelController@createsiswa');
         Route::resource('/mapel', 'MapelController');
-        Route::get('/jadwal/view/json', 'JadwalController@view');
         Route::resource('/user', 'UserController');
       });
 });
