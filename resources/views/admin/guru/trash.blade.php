@@ -2,11 +2,11 @@
 @push('link')
 
 @endpush
-@section('title', 'SIAKAD | DATA SISWA')
-@section('judul', 'DATA GURU')
+@section('title', 'SIAKAD | DATA TRASH GURU')
+@section('judul', 'DATA TRASH GURU')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA TRASH GURU</div>
 @endsection
 @section('main')
 @if ($message = Session::get('info'))
@@ -25,9 +25,8 @@
         <div class="card-header">
           <h4 class="card-title">Trash Data Guru</h4>
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
+          <table id="table_trash_guru" class="table table-striped">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -62,5 +61,9 @@
 </div>
 @endsection
 @push('script')
-
+<script>
+    $(document).ready( function () {
+        $('#table_trash_guru').DataTable();
+    } );
+</script>
 @endpush

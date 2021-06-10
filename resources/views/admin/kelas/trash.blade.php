@@ -2,11 +2,11 @@
 @push('link')
 
 @endpush
-@section('title', 'SIAKAD | DATA SISWA')
-@section('judul', 'DATA GURU')
+@section('title', 'SIAKAD | DATA TRASH KELAS')
+@section('judul', 'DATA TRASH KELAS')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA TRASH KELAS</div>
 @endsection
 @section('main')
 
@@ -25,12 +25,8 @@
     <div class="card-header">
         <h4>Trash Data Kelas</h4>
     </div>
-    <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
-        <a href="/kelas/createkelas" class="btn btn-success">Tambah Kelas +</a>
-    </div>
-    <!-- /.card-header -->
     <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped table-hover">
+        <table id="table_trash_kelas" class="table table-striped">
           <thead>
               <tr>
                   <th>No.</th>
@@ -65,7 +61,7 @@
 @push('script')
 <script>
     $(document).ready( function () {
-        $('#table_kelas').DataTable();
+        $('#table_trash_kelas').DataTable();
     } );
 </script>
 @endpush

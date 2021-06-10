@@ -5,7 +5,7 @@
 @section('title', 'SIAKAD | DATA MAPEL')
 @section('judul', 'DATA MAPEL')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
         <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA MAPEL</div>
 @endsection
 @section('main')
@@ -33,9 +33,9 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>NISN</th>
-                <th>Nama Siswa</th>
-                <th>Gender</th>
+                <th>Nama Mapel</th>
+                <th>Jenis Mapel</th>
+                <th>Jenis Pelajaran</th>
                 <th >Action</th>
             </tr>
         </thead>
@@ -49,7 +49,11 @@
                     @else
                       <td>{{ $data->paket->ket }}</td>
                     @endif
-                    <td>{{ $data->kelompok }}</td>
+                    @if ($data->kelompok == 'A')
+                        <td>Umum</td>
+                    @else
+                        <td>Kejuruan</td>
+                    @endif
                     <td>
                         <form action="{{ route('mapel.destroy', $data->id) }}" method="post">
                             @csrf

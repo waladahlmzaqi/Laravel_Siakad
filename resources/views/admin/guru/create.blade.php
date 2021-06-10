@@ -7,14 +7,14 @@
     }
 </style>
 @endpush
-@section('title', 'SIAKAD | DATA SISWA')
+@section('title', 'SIAKAD | DATA GURU')
 @section('judul', 'DATA GURU')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA GURU</div>
 @endsection
 @section('main')
-<div class="card">
+<div class="card card-primary">
     <div class="card-header">
         <h4>Tambah Data Guru</h4>
     </div>
@@ -45,17 +45,17 @@
                     </div>
                     <div class="form-group">
                         <label for="telp">Nomor Telpon/HP</label>
-                        <input type="text" id="telp" name="telp" onkeypress="return inputAngka(event)" class="form-control @error('telp') is-invalid @enderror">
+                        <input type="text" id="telp" name="telp" class="form-control @error('telp') is-invalid @enderror">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="nip">NIP</label>
-                        <input type="text" id="nip" name="nip" onkeypress="return inputAngka(event)" class="form-control @error('nip') is-invalid @enderror">
+                        <input type="text" id="nip" name="nip" class="form-control @error('nip') is-invalid @enderror">
                     </div>
                     <div class="form-group">
                         <label for="mapel_id">Mapel</label>
-                        <select id="mapel_id" name="mapel_id" class="select2bs4 form-control @error('mapel_id') is-invalid @enderror">
+                        <select id="mapel_id" name="mapel_id" class="form-control @error('mapel_id') is-invalid @enderror">
                             <option value="">-- Pilih Mapel --</option>
                             @foreach ($mapel as $data)
                                 <option value="{{ $data->id }}">{{ $data->nama_mapel }}</option>
@@ -78,16 +78,16 @@
                     @endphp
                     <div class="form-group">
                         <label for="id_card">Nomor ID Card</label>
-                        <input type="text" id="id_card" name="id_card" maxlength="5" onkeypress="return inputAngka(event)" value="{{ $id_card }}" class="form-control @error('id_card') is-invalid @enderror" readonly>
+                        <input type="text" id="id_card" name="id_card" maxlength="5" value="{{ $id_card }}" class="form-control @error('id_card') is-invalid @enderror" readonly>
                     </div>
                     <div class="form-group">
                         <label for="kode">Kode Jadwal</label>
-                        <input type="text" id="kode" name="kode" maxlength="3" onkeyup="this.value = this.value.toUpperCase()" class="form-control @error('kode') is-invalid @enderror">
+                        <input type="text" id="kode" name="kode" maxlength="3" class="form-control @error('kode') is-invalid @enderror">
                     </div>
                 </div>
               </div>
-              <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-success" data-dismiss="modal"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</button>
+              <div class="modal-footer justify-content-end">
+                  <a href="/guru" class="btn btn-success"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
                   <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
               </div>
         </form>

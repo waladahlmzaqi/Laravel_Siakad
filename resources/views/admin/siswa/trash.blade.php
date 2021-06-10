@@ -5,7 +5,7 @@
 @section('title', 'SIAKAD | DATA SISWA')
 @section('judul', 'DATA SISWA')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
         <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
 @endsection
 @section('main')
@@ -29,7 +29,7 @@
         <a href="/mapel/tambahsiswa" class="btn btn-success">Tambah Siswa +</a>
     </div>
     <div class="card-body">
-      <table class="table table-striped" id="table_siswa">
+      <table class="table table-striped" id="table_trash_siswa">
         <thead>
             <tr>
                 <th>No.</th>
@@ -63,6 +63,8 @@
 @endsection
 @push('script')
 <script>
-
+    $(document).ready( function () {
+        $('#table_trash_siswa').DataTable();
+    } );
 </script>
 @endpush

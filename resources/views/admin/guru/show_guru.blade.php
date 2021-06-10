@@ -2,11 +2,11 @@
 @push('link')
 
 @endpush
-@section('title', 'SIAKAD | DATA SISWA')
+@section('title', 'SIAKAD | DATA GURU')
 @section('judul', 'DATA GURU')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
+        <div class="breadcrumb-item ">{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA GURU</div>
 @endsection
 @section('main')
 @if ($message = Session::get('success'))
@@ -23,11 +23,14 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
+            <h4>Data Guru Mapel {{ $mapel->nama_mapel }}</h4>
+        </div>
+        <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
             <a href="{{ route('guru.index') }}" class="btn btn-success"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
+          <table id="table_show_guru" class="table table-striped">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -45,7 +48,11 @@
                     <td>{{ $data->nama_guru }}</td>
                     <td>{{ $data->id_card }}</td>
                     <td>{{ $data->nip }}</td>
-                    <td>{{ $data->jk }}</td>
+                    @if ($data->jk == 'L')
+                        <td>Laki-laki</td>
+                    @else
+                        <td>Perempuan</td>
+                    @endif
                     <td>
                         <form action="{{ route('guru.destroy', $data->id) }}" method="post">
                             @csrf
@@ -60,11 +67,45 @@
             </tbody>
           </table>
         </div>
-        <!-- /.card-body -->
     </div>
-    <!-- /.card -->
 </div>
+
+{{-- <div class="card">
+    <div class="card-header">
+        <h4>Data Guru</h4>
+    </div>
+    <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
+        <a href="/guru/tambahguru" class="btn btn-success">Tambah Guru +</a>
+     </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="table_guru" class="table table-striped">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama Mapel</th>
+                <th>Lihat Guru</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($mapel as $data)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $data->nama_mapel }}</td>
+                    <td>
+                        <a href="{{ route('guru.mapel', $data->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+      </table>
+    </div>
+</div> --}}
 @endsection
 @push('script')
-
+<script>
+    $(document).ready( function () {
+        $('#table_show_guru').DataTable();
+    } );
+</script>
 @endpush

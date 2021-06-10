@@ -2,11 +2,11 @@
 @push('link')
 
 @endpush
-@section('title', 'SIAKAD | DATA SISWA')
+@section('title', 'SIAKAD | DATA GURU')
 @section('judul', 'DATA GURU')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA GURU</div>
 @endsection
 @section('main')
 
@@ -83,11 +83,9 @@
                 </div>
               </div>
             </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
+            <div class="modal-footer justify-content-end">
               <a href="{{route("guru.mapel", $guru->mapel_id)}}" name="kembali" class="btn btn-success" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
-              <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
+              <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Update</button>
             </div>
         </form>
     </div>

@@ -10,7 +10,7 @@
 @section('title', 'SIAKAD | DATA MAPEL')
 @section('judul', 'DATA MAPEL')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
         <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA MAPEL</div>
 @endsection
 @section('main')
@@ -64,10 +64,10 @@
               </div>
           </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <a href="/mapel" class="btn btn-success"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
-        <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Update</button>
+        <div class="modal-footer justify-content-end">
+            <a href="/mapel" class="btn btn-success"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
+            <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Update</button>
+        </div>
       </div>
     </form>
 </div>

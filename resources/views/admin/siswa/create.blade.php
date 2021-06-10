@@ -1,12 +1,17 @@
 @extends('template.master')
 @push('link')
-
+<style>
+    .card{
+        width: 70%;
+        margin: 0px auto;
+    }
+</style>
 @endpush
-@section('title', 'SIAKAD | TAMBAH SISWA')
-@section('judul', 'TAMBAH SISWA')
+@section('title', 'SIAKAD | DATA SISWA')
+@section('judul', 'DATA SISWA')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> TAMBAH SISWA</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
 @endsection
 @section('main')
 <div class="card card-primary">
@@ -64,7 +69,7 @@
                 </div>
             </div>
             <div class="modal-footer mt-4">
-                <button type="button" class="btn btn-success mr-3"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</button>
+                <a href="/siswa" class="btn btn-success mr-3"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
                 <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
             </div>
         </form>

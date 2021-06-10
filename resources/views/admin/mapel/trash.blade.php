@@ -2,11 +2,11 @@
 @push('link')
 
 @endpush
-@section('title', 'SIAKAD | DATA MAPEL')
-@section('judul', 'DATA MAPEL')
+@section('title', 'SIAKAD | DATA TRASH MAPEL')
+@section('judul', 'DATA TRASH MAPEL')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA MAPEL</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA TRASH MAPEL</div>
 @endsection
 @section('main')
 
@@ -27,11 +27,10 @@
 <div class="col-md-12">
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Trash Data Mapel</h3>
+          <h4 class="card-title">Trash Data Mapel</h4>
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
+          <table id="table_trash_mapel" class="table table-striped">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -56,8 +55,8 @@
                         <form action="{{ route('mapel.kill', $data->id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a href="{{ route('mapel.restore', $data->id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-undo"></i> &nbsp; Restore</a>
-                            <button type="submit" class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            <a href="{{ route('mapel.restore', $data->id) }}" class="btn btn-success mt-2"><i class="nav-icon fas fa-undo"></i> &nbsp; Restore</a>
+                            <button type="submit" class="btn btn-danger mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>
                 </tr>
@@ -71,7 +70,7 @@
 @push('script')
 <script>
     $(document).ready( function () {
-        $('#table_mapel').DataTable();
+        $('#table_trash_mapel').DataTable();
     } );
 </script>
 @endpush

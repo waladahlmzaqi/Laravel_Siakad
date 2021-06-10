@@ -30,13 +30,13 @@
                         </li>
 
                         <li class="menu-header">TRASH</li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown @if (Request::is('mapel/trash','guru/trash','kelas/trash','siswa/trash')) active @endif">
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-recycle"></i><span>Trash Data</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{ route('mapel.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Mapel</span></a></li>
-                                <li><a class="nav-link" href="{{ route('guru.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Guru</span></a></li>
-                                <li><a class="nav-link" href="{{ route('kelas.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Kelas</span></a></li>
-                                <li><a class="nav-link" href="{{ route('siswa.trash') }}"><i class="far fa-trash-alt"></i></i><span>Trash Siswa</span></a></li>
+                                <li><a class="nav-link @if (Request::is('mapel/trash')) active @endif" href="{{ route('mapel.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Mapel</span></a></li>
+                                <li><a class="nav-link @if (Request::is('guru/trash')) active @endif" href="{{ route('guru.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Guru</span></a></li>
+                                <li><a class="nav-link @if (Request::is('kelas/trash')) active @endif" href="{{ route('kelas.trash') }}"><i class="far fa-trash-alt"></i><span>Trash Kelas</span></a></li>
+                                <li><a class="nav-link @if (Request::is('siswa/trash')) active @endif" href="{{ route('siswa.trash') }}"><i class="far fa-trash-alt"></i></i><span>Trash Siswa</span></a></li>
                             </ul>
                         </li>
 

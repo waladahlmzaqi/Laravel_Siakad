@@ -1,11 +1,16 @@
 @extends('template.master')
 @push('link')
-
+<style>
+    .card{
+        width: 70%;
+        margin: 0px auto;
+    }
+</style>
 @endpush
 @section('title', 'SIAKAD | DATA SISWA')
 @section('judul', 'DATA SISWA')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
         <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
 @endsection
 @section('main')
@@ -21,12 +26,9 @@
     </div>
 @endif
 
-<div class="card">
+<div class="card card-primary">
     <div class="card-header">
       <h4>Data Siswa</h4>
-    </div>
-    <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
-        <a href="/mapel/tambahsiswa" class="btn btn-success">Tambah Siswa +</a>
     </div>
     <div class="card-body">
         <form action="{{ route('siswa.update', $siswa->id) }}" method="post">
@@ -93,10 +95,8 @@
                 </div>
               </div>
             </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-              <a href="#" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
+            <div class="modal-footer justify-content-end">
+              <a href="/siswa" name="kembali" class="btn btn-success"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
               <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Update</button>
             </div>
           </form>

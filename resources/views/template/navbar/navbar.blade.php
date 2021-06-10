@@ -24,7 +24,7 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <div class="dropdown-title waktu_log">Logged in  5 min ago</div>
-                    <i class="far fa-user"></i> Profile
+                    {{-- <i class="far fa-user"></i> Profile --}}
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">

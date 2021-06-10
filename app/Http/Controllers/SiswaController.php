@@ -7,44 +7,30 @@ use App\Siswa;
 use App\Kelas;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
 class SiswaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
         return view('admin.siswa.index', compact('kelas'));
     }
-    public function index2()
+
+    public function kelas($id)
+    {
+        $siswa = Siswa::where('kelas_id', $id)->OrderBy('nama_siswa', 'asc')->get();
+        $kelas = Kelas::findorfail($id);
+        return view('admin.siswa.show_siswa', compact('siswa', 'kelas'));
+    }
+
+    public function createsiswa()
     {
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
         return view('admin.siswa.create', compact('kelas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -64,29 +50,16 @@ class SiswaController extends Controller
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
             ]);
-        // return redirect()->back()->with('success', 'Berhasil menambahkan data siswa baru!');
-        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
+        return redirect()->route('siswa.index')->with('success', '✔️ Data Siswa Berhasil Diperbarui!');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $siswa = Siswa::findorfail($id);
         return view('admin.siswa.detail', compact('siswa'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $siswa = Siswa::findorfail($id);
@@ -94,13 +67,6 @@ class SiswaController extends Controller
         return view('admin.siswa.edit', compact('siswa', 'kelas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -121,20 +87,14 @@ class SiswaController extends Controller
         ];
         $siswa->update($siswa_data);
 
-        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
+        return redirect()->route('siswa.index')->with('success', '✔️ Data Siswa Berhasil Diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $siswa = Siswa::findorfail($id);
             $siswa->delete();
-            return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
+            return redirect()->back()->with('warning', '✔️ Data Siswa Berhasil Dihapus! (Silahkan Cek Trash Data Siswa)');
     }
 
     public function trash()
@@ -147,7 +107,7 @@ class SiswaController extends Controller
     {
         $siswa = Siswa::withTrashed()->findorfail($id);
         $siswa->restore();
-        return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
+        return redirect()->back()->with('info', '✔️ Data Siswa Berhasil Direstore! (Silahkan Cek Data Siswa)');
 
     }
 
@@ -159,10 +119,10 @@ class SiswaController extends Controller
             $user = User::withTrashed()->where('no_induk', $siswa->no_induk)->first();
             $siswa->forceDelete();
             $user->forceDelete();
-            return redirect()->back()->with('success', 'Data siswa berhasil dihapus secara permanent');
+            return redirect()->back()->with('danger', '✖️ Data Siswa Berhasil Dihapus Secara Permanent');
         } else {
             $siswa->forceDelete();
-            return redirect()->back()->with('success', 'Data siswa berhasil dihapus secara permanent');
+            return redirect()->back()->with('danger', '✖️ Data Siswa Berhasil Dihapus Secara Permanent');
         }
     }
 
@@ -180,12 +140,5 @@ class SiswaController extends Controller
         }
 
         return response()->json($newForm);
-    }
-
-    public function kelas($id)
-    {
-        $siswa = Siswa::where('kelas_id', $id)->OrderBy('nama_siswa', 'asc')->get();
-        $kelas = Kelas::findorfail($id);
-        return view('admin.siswa.show_siswa', compact('siswa', 'kelas'));
     }
 }

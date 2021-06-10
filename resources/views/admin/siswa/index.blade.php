@@ -5,7 +5,7 @@
 @section('title', 'SIAKAD | DATA SISWA')
 @section('judul', 'DATA SISWA')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
         <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
 @endsection
 @section('main')
@@ -26,7 +26,7 @@
       <h4>Data Siswa</h4>
     </div>
     <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
-        <a href="/mapel/tambahsiswa" class="btn btn-success">Tambah Siswa +</a>
+        <a href="/siswa/tambahsiswa" class="btn btn-success">Tambah Siswa +</a>
     </div>
     <div class="card-body">
       <table class="table table-striped" id="table_siswa">

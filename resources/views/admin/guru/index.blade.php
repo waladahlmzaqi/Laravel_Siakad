@@ -2,11 +2,11 @@
 @push('link')
 
 @endpush
-@section('title', 'SIAKAD | DATA SISWA')
+@section('title', 'SIAKAD | DATA GURU')
 @section('judul', 'DATA GURU')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA GURU</div>
 @endsection
 @section('main')
 
@@ -26,37 +26,35 @@
     </div>
 @endif
 
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header">
-            <h4>Data Guru</h4>
-        </div>
-        <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
-            <a href="/mapel/tambahguru" class="btn btn-success">Tambah Mapel +</a>
-         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table id="table_guru" class="table table-striped">
-            <thead>
+<div class="card">
+    <div class="card-header">
+        <h4>Data Guru</h4>
+    </div>
+    <div class="d-flex flex-row-reverse mr-5" style="margin-top: -53px; margin-bottom: 30px;">
+        <a href="/guru/tambahguru" class="btn btn-success">Tambah Guru +</a>
+     </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="table_guru" class="table table-striped">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama Mapel</th>
+                <th>Lihat Guru</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($mapel as $data)
                 <tr>
-                    <th>No.</th>
-                    <th>Nama Mapel</th>
-                    <th>Lihat Guru</th>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $data->nama_mapel }}</td>
+                    <td>
+                        <a href="{{ route('guru.mapel', $data->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($mapel as $data)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $data->nama_mapel }}</td>
-                        <td>
-                            <a href="{{ route('guru.mapel', $data->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
+            @endforeach
+        </tbody>
+      </table>
     </div>
 </div>
 @endsection

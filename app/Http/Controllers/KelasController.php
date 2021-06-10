@@ -7,15 +7,9 @@ use App\Guru;
 use App\Paket;
 use App\Siswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 
 class KelasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
@@ -23,7 +17,17 @@ class KelasController extends Controller
         $paket = Paket::all();
         return view('admin.kelas.index', compact('kelas', 'guru', 'paket'));
     }
-    public function index2()
+
+    public function siswa($id)
+    {
+        $kelas = Kelas::findorfail($id);
+        $guru = Guru::OrderBy('nama_guru', 'asc')->get();
+        $paket = Paket::all();
+        $siswa = Siswa::where('kelas_id', $id)->orderBy('kelas_id', 'asc')->get();
+        return view('admin.kelas.show_siswa', compact('kelas', 'siswa', 'guru', 'paket'));
+    }
+
+    public function showsiswa()
     {
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
         $guru = Guru::OrderBy('nama_guru', 'asc')->get();
@@ -31,7 +35,7 @@ class KelasController extends Controller
         $siswa = Siswa::all();
         return view('admin.kelas.show_siswa', compact('kelas', 'siswa', 'guru', 'paket'));
     }
-    public function index3()
+    public function createkelas()
     {
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
         $guru = Guru::OrderBy('nama_guru', 'asc')->get();
@@ -39,23 +43,12 @@ class KelasController extends Controller
         return view('admin.kelas.create', compact('kelas', 'guru', 'paket'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $guru = Guru::OrderBy('nama_guru', 'asc')->get();
         return view('admin.kelas.create', compact('guru'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if ($request->id != '') {
@@ -82,54 +75,29 @@ class KelasController extends Controller
                 'guru_id' => $request->guru_id,
             ]
         );
-        return redirect()->route('kelas.index')->with('success', 'Data siswa berhasil diperbarui!');
+        return redirect()->route('kelas.index')->with('success', '✔️ Data Kelas Berhasil Diperbarui!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $kelas = Kelas::findorfail($id);
         $kelas->delete();
-        return redirect()->back()->with('warning', 'Data kelas berhasil dihapus! (Silahkan cek trash data kelas)');
+        return redirect()->back()->with('warning', '✔️ Data Kelas Berhasil Dihapus! (Silahkan Cek Trash Data Kelas)');
     }
 
     public function trash()
@@ -142,14 +110,14 @@ class KelasController extends Controller
     {
         $kelas = Kelas::withTrashed()->findorfail($id);
         $kelas->restore();
-        return redirect()->back()->with('info', 'Data kelas berhasil direstore! (Silahkan cek data kelas)');
+        return redirect()->back()->with('info', '✔️ Data Kelas Berhasil Direstore! (Silahkan Cek Data Kelas)');
     }
 
     public function kill($id)
     {
         $kelas = Kelas::withTrashed()->findorfail($id);
         $kelas->forceDelete();
-        return redirect()->back()->with('success', 'Data kelas berhasil dihapus secara permanent');
+        return redirect()->route('kelas.trash')->with('danger', '✖️ Data Kelas Berhasil Dihapus Secara Permanent');
     }
 
     public function getEdit(Request $request)
@@ -164,14 +132,5 @@ class KelasController extends Controller
             );
         }
         return response()->json($newForm);
-    }
-
-    public function siswa($id)
-    {
-        $kelas = Kelas::findorfail($id);
-        $guru = Guru::OrderBy('nama_guru', 'asc')->get();
-        $paket = Paket::all();
-        $siswa = Siswa::where('kelas_id', $id)->orderBy('kelas_id', 'asc')->get();
-        return view('admin.kelas.show_siswa', compact('kelas', 'siswa', 'guru', 'paket'));
     }
 }

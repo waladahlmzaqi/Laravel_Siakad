@@ -7,11 +7,11 @@
     }
 </style>
 @endpush
-@section('title', 'SIAKAD | DATA SISWA')
-@section('judul', 'DATA GURU')
+@section('title', 'SIAKAD | DATA MAPEL')
+@section('judul', 'DATA MAPEL')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA MAPEL</div>
 @endsection
 @section('main')
 <div class="card card-primary">
@@ -47,10 +47,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mt-3 mb-2">
-                        <a href="/mapel" class="btn btn-success mr-4"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
-                        <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
-                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <a href="/mapel" class="btn btn-success"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+                    <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
                 </div>
             </form>
         </div>
@@ -59,8 +59,5 @@
 @endsection
 @push('script')
 <script>
-    $("#MasterData").addClass("active");
-    $("#liMasterData").addClass("menu-open");
-    $("#DataMapel").addClass("active");
-  </script>
+</script>
 @endpush

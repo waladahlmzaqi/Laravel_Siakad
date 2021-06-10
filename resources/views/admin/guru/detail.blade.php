@@ -1,20 +1,17 @@
 @extends('template.master')
 @push('link')
 <style>
-    .card{
-        width: 50%;
-        margin: 0px auto;
-    }
+
 </style>
 @endpush
-@section('title', 'SIAKAD | DATA SISWA')
+@section('title', 'SIAKAD | DATA GURU')
 @section('judul', 'DATA GURU')
 @section('breadcrump')
-        <div class="breadcrumb-item "><i class="fas fa-user"></i></div>
-        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA SISWA</div>
+        <div class="breadcrumb-item "><i class="fas fa-user mr-2"></i>{{ Auth::user()->name }}</div>
+        <div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DATA GURU</div>
 @endsection
 @section('main')
-<div class="card">
+<div class="card card-primary">
     <div class="card-header">
         <h4>Detail Guru </h4>
     </div>
@@ -22,33 +19,12 @@
         <table class="table table-striped">
             <tbody>
               <tr>
-                <th scope="row">Nama</th>
-                <td>:</td>
-                <td>{{ $guru->nama_guru }}</td>
-              </tr>
-              <tr>
-                <th scope="row">NIP</th>
-                <td>:</td>
-                <td>{{ $guru->nip }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Id Card</th>
-                <td>:</td>
-                <td>{{ $guru->id_card }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Guru Mapel</th>
-                <td>:</td>
-                <td>{{ $guru->mapel->nama_mapel }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Kode Jadwal</th>
-                <td>:</td>
-                <td>{{ $guru->kode }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Jenis Kelamin</th>
-                <td>:</td>
+                <th scope="row" width="140px">Nama</th>
+                <td width="10px">:</td>
+                <td width="250px">{{ $guru->nama_guru }}</td>
+                {{--  --}}
+                <th scope="row" width="140px">Jenis Kelamin</th>
+                <td width="10px">:</td>
                 @if ($guru->jk == 'L')
                     <td>Laki-laki</td>
                 @else
@@ -56,19 +32,36 @@
                 @endif
               </tr>
               <tr>
+                <th scope="row">NIP</th>
+                <td>:</td>
+                <td>{{ $guru->nip }}</td>
+                {{--  --}}
                 <th scope="row">Tempat Lahir</th>
                 <td>:</td>
                 <td>{{ $guru->tmp_lahir }}</td>
               </tr>
               <tr>
+                <th scope="row">Id Card</th>
+                <td>:</td>
+                <td>{{ $guru->id_card }}</td>
+                {{--  --}}
                 <th scope="row">Tanggal Lahir</th>
                 <td>:</td>
                 <td>{{ date('l, d F Y', strtotime($guru->tgl_lahir)) }}</td>
               </tr>
               <tr>
+                <th scope="row">Guru Mapel</th>
+                <td>:</td>
+                <td>{{ $guru->mapel->nama_mapel }}</td>
+                {{--  --}}
                 <th scope="row">No Telephone</th>
                 <td>:</td>
                 <td>{{ $guru->telp }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Kode Jadwal</th>
+                <td>:</td>
+                <td>{{ $guru->kode }}</td>
               </tr>
             </tbody>
         </table>
